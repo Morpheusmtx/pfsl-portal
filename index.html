@@ -7,38 +7,35 @@
 <meta name="color-scheme" content="light dark">
 <style>
   :root{
-    --bg:#0b0f19;--card:#111827;--muted:#9aa4b2;--text:#e6e9ef;
-    --ig1:#e1306c;--ig2:#f56040;--fb:#1877f2;
-    --ok:#22c55e;--disabled:#334155;--ring:#1f2937;--accent:#60a5fa
+    --bg:#0b0f19;--card:#111827;--text:#e6e9ef;--muted:#9aa4b2;--ring:#1f2937;
+    --ig1:#f56040;--ig2:#e1306c;--fb:#1877f2;--ok:#22c55e;--warn:#f59e0b;--disabled:#334155
   }
   *{box-sizing:border-box}
-  body{
-    margin:0;min-height:100vh;display:grid;place-items:center;
-    background:radial-gradient(80% 80% at 50% -10%,#1f2842 0%,#0b0f19 60%);
-    color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Arial
-  }
-  .wrap{
-    width:min(560px,92%);background:linear-gradient(180deg,#141a2a,#0e1424);
-    border:1px solid var(--ring);border-radius:16px;padding:22px;box-shadow:0 20px 50px #0008
-  }
+  body{margin:0;min-height:100vh;display:grid;place-items:center;
+       background:radial-gradient(80% 80% at 50% -10%,#1f2842 0%,#0b0f19 60%);
+       color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Arial}
+  .wrap{width:min(560px,92%);background:linear-gradient(180deg,#141a2a,#0e1424);
+        border:1px solid var(--ring);border-radius:16px;padding:22px;box-shadow:0 20px 50px #0008}
   h1{margin:4px 0 2px;font-size:22px}
   p.sub{margin:0 0 16px;color:var(--muted)}
   .step{border:1px solid #222b3f;border-radius:14px;padding:16px;margin:14px 0;background:#0c1222}
   .head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
   .badge{width:28px;height:28px;border-radius:8px;background:#1f2937;display:grid;place-items:center;font-weight:700;color:#cbd5e1}
   .title{font-weight:800}
-  .btn{width:100%;border:0;border-radius:12px;padding:14px 16px;font-weight:800;cursor:pointer;color:#fff;transition:transform .05s ease}
-  .btn:active{transform:scale(.995)}
+  .btn{display:block;text-align:center;width:100%;border:0;border-radius:12px;padding:14px 16px;
+       font-weight:800;cursor:pointer;color:#fff;text-decoration:none}
   .btn-ig{background:linear-gradient(90deg,var(--ig2),var(--ig1))}
   .btn-fb{background:var(--fb)}
   .btn-go{background:var(--disabled)}
-  .btn-go.enabled{background:var(--ok);color:#0b1222}
-  .btn-go.progress{background:linear-gradient(90deg,#f59e0b,#22c55e);color:#0b1222}
-  .hint{margin-top:10px;color:#94a3b8;font-size:14px}
+  .btn-go.one{background:linear-gradient(90deg,var(--warn),#eab308);color:#0b1222}
+  .btn-go.ready{background:var(--ok);color:#0b1222}
   .mark{margin-top:10px;color:#86efac;font-weight:700;display:none}
   .mark.show{display:block}
-  .okline{margin-top:10px;color:#86efac;font-weight:700;display:none;text-align:center}
-  .foot{margin-top:6px;text-align:center;color:#64748b;font-size:12px}
+  .hint{margin-top:10px;color:#94a3b8;font-size:14px}
+  .foot{margin-top:8px;text-align:center;color:#64748b;font-size:12px}
+  .state{margin-top:12px;font-size:12px;color:#94a3b8}
+  .tools{margin-top:8px}
+  .force{display:none;margin-top:8px;font-size:12px;color:#cbd5e1;text-decoration:underline;cursor:pointer}
 </style>
 </head>
 <body>
@@ -46,137 +43,135 @@
     <h1>Pago Fácil San Lucas / Despensa LyR</h1>
     <p class="sub">Completá estos <b>3 pasos</b> (rápido) y listo ✅</p>
 
-    <!-- Paso 1: Instagram -->
-    <section class="step" id="s1">
-      <div class="head">
-        <div class="badge">1</div>
-        <div class="title">Seguí nuestro <b>Instagram</b></div>
-      </div>
-      <button class="btn btn-ig" id="btnIg" type="button">Abrir Instagram</button>
+    <!-- Paso 1 -->
+    <section class="step">
+      <div class="head"><div class="badge">1</div><div class="title">Seguí nuestro <b>Instagram</b></div></div>
+      <a class="btn btn-ig" id="ig" href="https://www.instagram.com/pagofacil_sanlucas">Abrir Instagram</a>
       <div class="mark" id="ok1">✔ Marcado</div>
       <div class="hint">Si tenés la app, el teléfono te la va a ofrecer abrir.</div>
     </section>
 
-    <!-- Paso 2: Facebook -->
-    <section class="step" id="s2">
-      <div class="head">
-        <div class="badge">2</div>
-        <div class="title">Seguí nuestro <b>Facebook</b></div>
-      </div>
-      <button class="btn btn-fb" id="btnFb" type="button">Abrir Facebook</button>
+    <!-- Paso 2 -->
+    <section class="step">
+      <div class="head"><div class="badge">2</div><div class="title">Seguí nuestro <b>Facebook</b></div></div>
+      <a class="btn btn-fb" id="fb" href="https://www.facebook.com/PagoFacilSanLucas">Abrir Facebook</a>
       <div class="mark" id="ok2">✔ Marcado</div>
     </section>
 
-    <!-- Paso 3: Finalizar (psicológico) -->
-    <section class="step" id="s3">
-      <div class="head">
-        <div class="badge">3</div>
-        <div class="title">Finalizar</div>
-      </div>
-      <button class="btn btn-go" id="btnGo" type="button" disabled>Faltan 2 pasos…</button>
-      <div class="hint" id="msg">Primero Instagram y Facebook. Luego finalizás.</div>
-      <div class="okline" id="okline">✔ Conexión establecida. Ya podés seguir navegando.</div>
+    <!-- Paso 3 -->
+    <section class="step">
+      <div class="head"><div class="badge">3</div><div class="title">Finalizar</div></div>
+      <button class="btn btn-go" id="go" type="button">Conexión lista</button>
+      <div class="state" id="state"></div>
+      <div class="tools"><span id="force" class="force">¿No te deja navegar? Forzar conexión</span></div>
     </section>
 
     <div class="foot">© Pago Fácil San Lucas / Despensa LyR</div>
   </main>
 
+  <img id="pixel" alt="" style="display:none;width:1px;height:1px">
 <script>
 (function(){
   "use strict";
-  const LINKS = {
-    ig: "https://www.instagram.com/pagofacil_sanlucas",
-    fb: "https://www.facebook.com/PagoFacilSanLucas"
-  };
+  // URLs destino
+  const IG = "https://www.instagram.com/pagofacil_sanlucas";
+  const FB = "https://www.facebook.com/PagoFacilSanLucas";
 
-  // Omada (External Portal) suele pasar authUrl en la query
-  const qs = new URLSearchParams(location.search);
-  const authUrl = qs.get("authUrl") || "";
-
+  // Helpers DOM
   const $ = s => document.querySelector(s);
-  const btnIg = $("#btnIg");
-  const btnFb = $("#btnFb");
-  const btnGo = $("#btnGo");
-  const msg   = $("#msg");
+  const pixel = $("#pixel"), st = $("#state"), btnGo = $("#go"), linkIg=$("#ig"), linkFb=$("#fb"), force=$("#force");
 
-  const state = { ig:false, fb:false, authed:false };
+  // Leer authUrl (External Portal) — si no viene, asumimos Cloud (ya online)
+  const qs = new URLSearchParams(location.search);
+  const authUrl = qs.get("authUrl") || qs.get("authurl") || "";
 
-  // Si el usuario vuelve desde las apps, mantenemos progreso
+  // Estado (namespaced)
+  let state = { ig:false, fb:false, authed:false, tried:false };
   try{
-    Object.assign(state, JSON.parse(sessionStorage.getItem("pfsl_steps")||"{}"));
+    const saved = JSON.parse(sessionStorage.getItem("pfsl_state")||"{}");
+    state = Object.assign(state, saved);
   }catch(_){}
-  updateUI();
 
-  function persist(){ sessionStorage.setItem("pfsl_steps", JSON.stringify(state)); }
-  function openNew(u){ try{ window.open(u,"_blank"); }catch{ location.href=u; } }
-
-  // Autoriza contra Omada usando una "pixel request" (evita CORS)
-  function authorize(){
-    return new Promise((resolve)=>{
-      if(state.authed || !authUrl){ state.authed = true; persist(); return resolve(true); }
-      const img = new Image();
-      // timeout corto: si no carga igual damos por ok (Omada suele responder 204/302)
-      const t = setTimeout(()=>{ state.authed = true; persist(); resolve(true); }, 1200);
-      img.onload  = ()=>{ clearTimeout(t); state.authed = true; persist(); resolve(true); };
-      img.onerror = ()=>{ clearTimeout(t); state.authed = true; persist(); resolve(true); };
-      img.src = authUrl + (authUrl.includes("?")?"&":"?") + "_ts=" + Date.now();
-    });
+  if(!authUrl) { // Cloud Essentials: ya están online
+    state.authed = true;
+    paint("Conectado (modo Cloud).");
+  } else {
+    paint("Listo para conectar…");
+    // No disparamos automáticamente; lo haremos al primer clic para no molestar al CNA
   }
 
+  // Persistencia
+  function persist(){ try{ sessionStorage.setItem("pfsl_state", JSON.stringify(state)); }catch(_){} }
+
+  // UI: checks y botón 3
   function updateUI(){
-    // Marcas ✔
     if(state.ig) $("#ok1").classList.add("show");
     if(state.fb) $("#ok2").classList.add("show");
 
-    // Texto del botón 3 según progreso
     if(state.ig && state.fb){
-      btnGo.disabled = false;
-      btnGo.classList.add("enabled");
-      btnGo.classList.remove("progress");
-      btnGo.textContent = "Conexión lista";
-      msg.textContent = "Tocá para finalizar.";
-    }else if(state.ig || state.fb){
-      btnGo.disabled = true;
-      btnGo.classList.add("progress");
+      btnGo.classList.add("ready");
+      btnGo.classList.remove("one");
+      btnGo.textContent = "✅ Conexión establecida";
+    } else if (state.ig || state.fb){
+      btnGo.classList.remove("ready");
+      btnGo.classList.add("one");
       btnGo.textContent = "¡Ya casi! Falta 1 paso…";
-      msg.textContent = "Marcá el paso que falta para finalizar.";
-    }else{
-      btnGo.disabled = true;
-      btnGo.classList.remove("progress");
-      btnGo.textContent = "Faltan 2 pasos…";
-      msg.textContent = "Primero Instagram y Facebook. Luego finalizás.";
+    } else {
+      btnGo.classList.remove("ready","one");
+      btnGo.textContent = "Conexión lista";
+    }
+
+    // “Forzar conexión” visible solo si hay authUrl y aún no estamos authed tras un rato
+    if(authUrl && !state.authed){
+      force.style.display = "inline-block";
+    } else {
+      force.style.display = "none";
     }
   }
 
-  // PASO 1: abrir IG + autorizar (así ya tienen internet)
-  function handleIg(){
-    openNew(LINKS.ig);
-    state.ig = true; persist();
-    $("#ok1").classList.add("show");
-    authorize().then(updateUI);
+  // Estado/diagnóstico discreto
+  function paint(msg){ st.textContent = msg; }
+
+  // Autorización vía pixel (evita CORS)
+  function authorize(){
+    return new Promise((resolve)=>{
+      if(state.authed || !authUrl){ return resolve(true); }
+      if(state.tried) { return resolve(true); }
+      state.tried = true; persist();
+      paint("Conectando…");
+
+      const u = authUrl + (authUrl.includes("?")?"&":"?") + "_ts=" + Date.now();
+      let done = false;
+      const finish = (txt)=>{ if(done) return; done=true; state.authed=true; persist(); paint(txt||"Conectado ✔"); updateUI(); resolve(true); };
+      const t = setTimeout(()=>finish("Conectado (timeout) ✔"), 1200);
+
+      pixel.onload  = ()=>{ clearTimeout(t); finish("Conectado ✔"); };
+      pixel.onerror = ()=>{ clearTimeout(t); finish("Conectado (fallback) ✔"); };
+      pixel.src = u;
+    });
   }
 
-  // PASO 2: abrir FB (ya con internet habilitado)
-  function handleFb(){
-    openNew(LINKS.fb);
-    state.fb = true; persist();
-    $("#ok2").classList.add("show");
-    authorize().then(updateUI);
+  // Abrir destinos en la MISMA vista (mejor en CNA)
+  async function authorizeThenGo(url){
+    if(!state.authed){ await authorize(); }
+    setTimeout(()=>{ location.href = url; }, state.authed ? 200 : 500);
   }
 
-  // PASO 3: feedback final (no redirigimos a otra página)
-  function handleGo(){
-    $("#okline").style.display = "block";
-    // intentamos cerrar la vista cautiva si el SO lo permite
+  // Eventos IG/FB: marcar ✔ y navegar (tras auth si aplica)
+  linkIg.addEventListener("click", (e)=>{ e.preventDefault(); state.ig=true; persist(); $("#ok1").classList.add("show"); updateUI(); authorizeThenGo(IG); }, {passive:false});
+  linkFb.addEventListener("click", (e)=>{ e.preventDefault(); state.fb=true; persist(); $("#ok2").classList.add("show"); updateUI(); authorizeThenGo(FB); }, {passive:false});
+
+  // Botón final: feedback + tratar de cerrar popup
+  btnGo.addEventListener("click", ()=>{
+    paint("Conexión establecida ✔. Ya podés navegar o cerrar esta ventana.");
     try{ window.close(); }catch(_){}
-  }
+  }, {passive:true});
 
-  // Soporte para distintos gestos (algunos CNAs priorizan touchstart)
-  btnIg.addEventListener("touchstart", handleIg, {passive:true});
-  btnIg.addEventListener("click",      handleIg, {passive:true});
-  btnFb.addEventListener("touchstart", handleFb, {passive:true});
-  btnFb.addEventListener("click",      handleFb, {passive:true});
-  btnGo.addEventListener("click",      handleGo, {passive:true});
+  // Forzar conexión manual si algo se colgó
+  force.addEventListener("click", ()=>{ state.authed=false; state.tried=false; persist(); authorize(); }, {passive:true});
+
+  // Init
+  updateUI();
 })();
 </script>
 </body>

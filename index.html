@@ -1,178 +1,109 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Pago Fácil San Lucas / Despensa LyR – Conexión</title>
-<meta name="color-scheme" content="light dark">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Pago Fácil San Lucas – Conexión</title>
 <style>
-  :root{
-    --bg:#0b0f19;--card:#111827;--text:#e6e9ef;--muted:#9aa4b2;--ring:#1f2937;
-    --ig1:#f56040;--ig2:#e1306c;--fb:#1877f2;--ok:#22c55e;--warn:#f59e0b;--disabled:#334155
-  }
-  *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;display:grid;place-items:center;
-       background:radial-gradient(80% 80% at 50% -10%,#1f2842 0%,#0b0f19 60%);
-       color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Arial}
-  .wrap{width:min(560px,92%);background:linear-gradient(180deg,#141a2a,#0e1424);
-        border:1px solid var(--ring);border-radius:16px;padding:22px;box-shadow:0 20px 50px #0008}
-  h1{margin:4px 0 2px;font-size:22px}
-  p.sub{margin:0 0 16px;color:var(--muted)}
-  .step{border:1px solid #222b3f;border-radius:14px;padding:16px;margin:14px 0;background:#0c1222}
-  .head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-  .badge{width:28px;height:28px;border-radius:8px;background:#1f2937;display:grid;place-items:center;font-weight:700;color:#cbd5e1}
-  .title{font-weight:800}
-  .btn{display:block;text-align:center;width:100%;border:0;border-radius:12px;padding:14px 16px;
-       font-weight:800;cursor:pointer;color:#fff;text-decoration:none}
-  .btn-ig{background:linear-gradient(90deg,var(--ig2),var(--ig1))}
-  .btn-fb{background:var(--fb)}
-  .btn-go{background:var(--disabled)}
-  .btn-go.one{background:linear-gradient(90deg,var(--warn),#eab308);color:#0b1222}
-  .btn-go.ready{background:var(--ok);color:#0b1222}
-  .mark{margin-top:10px;color:#86efac;font-weight:700;display:none}
-  .mark.show{display:block}
-  .hint{margin-top:10px;color:#94a3b8;font-size:14px}
-  .foot{margin-top:8px;text-align:center;color:#64748b;font-size:12px}
-  .state{margin-top:12px;font-size:12px;color:#94a3b8}
-  .tools{margin-top:8px}
-  .force{display:none;margin-top:8px;font-size:12px;color:#cbd5e1;text-decoration:underline;cursor:pointer}
+  :root{--bg:#121212;--card:#1e1e1e;--text:#fff;--muted:#b3b3b3;--yellow:#facc15;--green:#16a34a;--gray:#3f3f46;}
+  *{box-sizing:border-box} body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto}
+  .card{width:min(440px,92%);background:var(--card);padding:20px 18px;border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,.35)}
+  h1{margin:0 0 2px;font-size:22px} p{margin:0 0 14px;color:var(--muted)}
+  .status{display:flex;align-items:center;gap:8px;margin:10px 0 14px;font-size:13px;color:#cbd5e1}
+  .dot{width:9px;height:9px;border-radius:50%;}
+  .dot.red{background:#ef4444}.dot.yellow{background:var(--yellow)}.dot.green{background:var(--green)}
+  .step{margin:14px 0;padding:12px;border:1px solid #2a2a2a;border-radius:10px}
+  .badge{display:inline-block;font-size:12px;color:#0ea5e9;border:1px solid #0ea5e9;border-radius:999px;padding:2px 8px;margin-bottom:6px}
+  .btn{display:inline-flex;justify-content:center;align-items:center;width:100%;padding:12px 14px;border:0;border-radius:10px;color:#fff;font-weight:700}
+  .ig{background:linear-gradient(90deg,#f58529,#dd2a7b,#8134af,#515bd4)}
+  .fb{background:#1877f2}
+  #connectBtn{background:var(--gray)}
+  #connectBtn.yellow{background:var(--yellow);color:#111}
+  #connectBtn.green{background:var(--green);color:#fff}
+  small{color:#9aa3af}
 </style>
 </head>
 <body>
-  <main class="wrap" role="status" aria-live="polite">
+  <main class="card">
     <h1>Pago Fácil San Lucas / Despensa LyR</h1>
-    <p class="sub">Completá estos <b>3 pasos</b> (rápido) y listo ✅</p>
+    <div class="status">
+      <span id="authDot" class="dot red"></span>
+      <span id="authMsg">Buscando autorización…</span>
+    </div>
+    <p>Hacé estos 3 pasos y ¡listo!</p>
 
-    <!-- Paso 1 -->
-    <section class="step">
-      <div class="head"><div class="badge">1</div><div class="title">Seguí nuestro <b>Instagram</b></div></div>
-      <a class="btn btn-ig" id="ig" href="https://www.instagram.com/pagofacil_sanlucas">Abrir Instagram</a>
-      <div class="mark" id="ok1">✔ Marcado</div>
-      <div class="hint">Si tenés la app, el teléfono te la va a ofrecer abrir.</div>
+    <section id="step1" class="step">
+      <span class="badge">Paso 1</span>
+      <h3>Seguí nuestro Instagram</h3>
+      <button class="btn ig" id="igBtn">Abrir Instagram</button>
     </section>
 
-    <!-- Paso 2 -->
-    <section class="step">
-      <div class="head"><div class="badge">2</div><div class="title">Seguí nuestro <b>Facebook</b></div></div>
-      <a class="btn btn-fb" id="fb" href="https://www.facebook.com/PagoFacilSanLucas">Abrir Facebook</a>
-      <div class="mark" id="ok2">✔ Marcado</div>
+    <section id="step2" class="step">
+      <span class="badge">Paso 2</span>
+      <h3>Seguí nuestro Facebook</h3>
+      <button class="btn fb" id="fbBtn">Abrir Facebook</button>
     </section>
 
-    <!-- Paso 3 -->
     <section class="step">
-      <div class="head"><div class="badge">3</div><div class="title">Finalizar</div></div>
-      <button class="btn btn-go" id="go" type="button">Conexión lista</button>
-      <div class="state" id="state"></div>
-      <div class="tools"><span id="force" class="force">¿No te deja navegar? Forzar conexión</span></div>
+      <button id="connectBtn" class="btn">Conexión lista</button>
+      <p style="margin-top:10px"><small>Si el navegador te muestra un aviso, elegí “Continuar en el navegador”.</small></p>
     </section>
-
-    <div class="foot">© Pago Fácil San Lucas / Despensa LyR</div>
   </main>
 
-  <img id="pixel" alt="" style="display:none;width:1px;height:1px">
 <script>
-(function(){
-  "use strict";
-  // URLs destino
-  const IG = "https://www.instagram.com/pagofacil_sanlucas";
-  const FB = "https://www.facebook.com/PagoFacilSanLucas";
+  const igBtn = document.getElementById('igBtn');
+  const fbBtn = document.getElementById('fbBtn');
+  const connectBtn = document.getElementById('connectBtn');
+  const authDot = document.getElementById('authDot');
+  const authMsg = document.getElementById('authMsg');
 
-  // Helpers DOM
-  const $ = s => document.querySelector(s);
-  const pixel = $("#pixel"), st = $("#state"), btnGo = $("#go"), linkIg=$("#ig"), linkFb=$("#fb"), force=$("#force");
-
-  // Leer authUrl (External Portal) — si no viene, asumimos Cloud (ya online)
   const qs = new URLSearchParams(location.search);
-  const authUrl = qs.get("authUrl") || qs.get("authurl") || "";
+  const authUrl = qs.get('authUrl') || qs.get('authurl') || '';
 
-  // Estado (namespaced)
-  let state = { ig:false, fb:false, authed:false, tried:false };
-  try{
-    const saved = JSON.parse(sessionStorage.getItem("pfsl_state")||"{}");
-    state = Object.assign(state, saved);
-  }catch(_){}
-
-  if(!authUrl) { // Cloud Essentials: ya están online
-    state.authed = true;
-    paint("Conectado (modo Cloud).");
-  } else {
-    paint("Listo para conectar…");
-    // No disparamos automáticamente; lo haremos al primer clic para no molestar al CNA
+  function setStatus(color, msg){
+    authDot.className = 'dot ' + color;
+    authMsg.textContent = msg;
   }
 
-  // Persistencia
-  function persist(){ try{ sessionStorage.setItem("pfsl_state", JSON.stringify(state)); }catch(_){} }
-
-  // UI: checks y botón 3
-  function updateUI(){
-    if(state.ig) $("#ok1").classList.add("show");
-    if(state.fb) $("#ok2").classList.add("show");
-
-    if(state.ig && state.fb){
-      btnGo.classList.add("ready");
-      btnGo.classList.remove("one");
-      btnGo.textContent = "✅ Conexión establecida";
-    } else if (state.ig || state.fb){
-      btnGo.classList.remove("ready");
-      btnGo.classList.add("one");
-      btnGo.textContent = "¡Ya casi! Falta 1 paso…";
-    } else {
-      btnGo.classList.remove("ready","one");
-      btnGo.textContent = "Conexión lista";
-    }
-
-    // “Forzar conexión” visible solo si hay authUrl y aún no estamos authed tras un rato
-    if(authUrl && !state.authed){
-      force.style.display = "inline-block";
-    } else {
-      force.style.display = "none";
-    }
+  function pingAuth(){
+    if(!authUrl){ setStatus('red','Sin token de autorización (authUrl no presente)'); return; }
+    setStatus('yellow','Autorizando…');
+    const img = new Image();
+    img.onload = () => setStatus('green','Conexión habilitada ✔');
+    img.onerror = () => setStatus('yellow','Reintentando autorización…');
+    img.src = authUrl + (authUrl.includes('?') ? '&' : '?') + '_ts=' + Date.now();
   }
 
-  // Estado/diagnóstico discreto
-  function paint(msg){ st.textContent = msg; }
-
-  // Autorización vía pixel (evita CORS)
-  function authorize(){
-    return new Promise((resolve)=>{
-      if(state.authed || !authUrl){ return resolve(true); }
-      if(state.tried) { return resolve(true); }
-      state.tried = true; persist();
-      paint("Conectando…");
-
-      const u = authUrl + (authUrl.includes("?")?"&":"?") + "_ts=" + Date.now();
-      let done = false;
-      const finish = (txt)=>{ if(done) return; done=true; state.authed=true; persist(); paint(txt||"Conectado ✔"); updateUI(); resolve(true); };
-      const t = setTimeout(()=>finish("Conectado (timeout) ✔"), 1200);
-
-      pixel.onload  = ()=>{ clearTimeout(t); finish("Conectado ✔"); };
-      pixel.onerror = ()=>{ clearTimeout(t); finish("Conectado (fallback) ✔"); };
-      pixel.src = u;
-    });
+  // Estado de pasos
+  function updateCTA(){
+    const ig = sessionStorage.getItem('igDone') === 'true';
+    const fb = sessionStorage.getItem('fbDone') === 'true';
+    if(ig && fb){ connectBtn.className='btn green'; connectBtn.textContent='✅ Conexión establecida'; }
+    else if(ig || fb){ connectBtn.className='btn yellow'; connectBtn.textContent='¡Ya casi! Falta 1 paso…'; }
+    else{ connectBtn.className='btn'; connectBtn.textContent='Conexión lista'; }
   }
 
-  // Abrir destinos en la MISMA vista (mejor en CNA)
-  async function authorizeThenGo(url){
-    if(!state.authed){ await authorize(); }
-    setTimeout(()=>{ location.href = url; }, state.authed ? 200 : 500);
-  }
-
-  // Eventos IG/FB: marcar ✔ y navegar (tras auth si aplica)
-  linkIg.addEventListener("click", (e)=>{ e.preventDefault(); state.ig=true; persist(); $("#ok1").classList.add("show"); updateUI(); authorizeThenGo(IG); }, {passive:false});
-  linkFb.addEventListener("click", (e)=>{ e.preventDefault(); state.fb=true; persist(); $("#ok2").classList.add("show"); updateUI(); authorizeThenGo(FB); }, {passive:false});
-
-  // Botón final: feedback + tratar de cerrar popup
-  btnGo.addEventListener("click", ()=>{
-    paint("Conexión establecida ✔. Ya podés navegar o cerrar esta ventana.");
-    try{ window.close(); }catch(_){}
-  }, {passive:true});
-
-  // Forzar conexión manual si algo se colgó
-  force.addEventListener("click", ()=>{ state.authed=false; state.tried=false; persist(); authorize(); }, {passive:true});
+  igBtn.onclick = () => {
+    sessionStorage.setItem('igDone','true');
+    updateCTA();
+    window.open('https://www.instagram.com/pagofacil_sanlucas','_blank','noopener');
+  };
+  fbBtn.onclick = () => {
+    sessionStorage.setItem('fbDone','true');
+    updateCTA();
+    // FB móvil suele forzar m-dot
+    window.open('https://m.facebook.com/PagoFacilSanLucas','_blank','noopener');
+  };
+  connectBtn.onclick = pingAuth;
 
   // Init
-  updateUI();
-})();
+  if(sessionStorage.getItem('igDone')==='true'){}
+  if(sessionStorage.getItem('fbDone')==='true'){}
+  updateCTA();
+  // Auto-autoriza apenas llegamos
+  pingAuth();
+  // Un segundo intento por si el primero cae en el limbo del CNA
+  setTimeout(pingAuth, 1200);
 </script>
 </body>
 </html>
